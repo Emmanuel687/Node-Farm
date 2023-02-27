@@ -9,3 +9,8 @@ const textOut = `This is what we know about the avacado ${textIn}.\n Created on 
 fs.writeFileSync("./txt/output.txt",textOut)
 
 console.log('File written!')
+
+
+fs.readFile('./txt/start.txt','utf-8',(err,data)=>{
+    console.log(data)
+})
