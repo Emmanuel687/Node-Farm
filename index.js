@@ -1,6 +1,7 @@
 // fs Stands for file system
 const fs = require("fs");
 const http = require("http");
+const { dirname } = require("path");
 const url = require("url");
 
 // Creating new files
@@ -18,28 +19,33 @@ const url = require("url");
 //   fs.readFile(`./txt/${data1}.txt`, "utf-8", (err, data2) => {
 //     if(err){console.log('Error')}
 //     console.log(data2);
-    
+
 //   });
 // });
 
 // fs.writeFile("./txt/")
 
-const server = http.createServer((req,res)=>{
-    const pathName = req.url;
-    if(pathName ==='/' || pathName === '/overview'){
-        res.end('This is the Overview')
-    }else if(pathName==="/product"){
-        res.end("This is the Product")
-    }else{
-        res.writeHead("404",{
-            'Content-type':'text/html',
-            'my-own-header':'hello-world'
-        })
-        res.end('<h1>Page Not found</h1>')
+const server = http.createServer((req, res) => {
+  const pathName = req.url;
+  if (pathName === "/" || pathName === "/overview") {
+    res.end("This is the Overview");
+  } else if (pathName === "/product") {
+    res.end("This is the Product");
+  } else if (pathName === "/api") {
+    fs.readFile(`${__dirname}/dev-data/data.json`, "utf-8", (err, data) => {
+      const productData = JSON.parse(data);
+      res.writeHead(200, { "Content-type": "application/json" });
+      res.end(data);
+    });
+  } else {
+    res.writeHead("404", {
+      "Content-type": "text/html",
+      "my-own-header": "hello-world",
+    });
+    res.end("<h1>Page Not found</h1>");
+  }
+});
 
-    }
-})
-
-server.listen(8000, '127.0.0.1', ()=>{
-    console.log("Listening to request on port 8000")
-})
+server.listen(8000, "127.0.0.1", () => {
+  console.log("Listening to request on port 8000");
+});
