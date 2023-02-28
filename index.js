@@ -1,6 +1,7 @@
 // fs Stands for file system
 const fs = require("fs");
-const http = require("http")
+const http = require("http");
+const url = require("url");
 
 // Creating new files
 // const textIn = fs.readFileSync("./txt/input.txt",'utf-8');
@@ -24,9 +25,14 @@ const http = require("http")
 // fs.writeFile("./txt/")
 
 const server = http.createServer((req,res)=>{
-    res.end('Hello From the server')
+    const pathName = req.url;
+    if(pathName ==='/' || pathName === '/overview'){
+        res.end('This is the Overview')
+    }else if(pathName==="/product"){
+        res.end("THis is the producd")
+    }
 })
 
-server.listen(8000, "127.0.8.1", ()=>{
+server.listen(8000, '127.0.0.1', ()=>{
     console.log("Listening to request on port 8000")
 })
