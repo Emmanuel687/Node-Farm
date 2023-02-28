@@ -25,19 +25,30 @@ const url = require("url");
 
 // fs.writeFile("./txt/")
 
+// SERVER
+const data = fs.readFileSync(`${__dirname}/dev-data/data.json`,'utf-8')
+const DataObj = JSON.parse(data)
+
 const server = http.createServer((req, res) => {
+// Path Module
   const pathName = req.url;
+
   if (pathName === "/" || pathName === "/overview") {
     res.end("This is the Overview");
-  } else if (pathName === "/product") {
+  }
+  //Product Route
+   else if (pathName === "/product") {
     res.end("This is the Product");
-  } else if (pathName === "/api") {
-    fs.readFile(`${__dirname}/dev-data/data.json`, "utf-8", (err, data) => {
-      const productData = JSON.parse(data);
+  } 
+
+  //API Route
+  else if (pathName === "/api") {
       res.writeHead(200, { "Content-type": "application/json" });
       res.end(data);
-    });
-  } else {
+  } 
+
+  //Error Route
+  else {
     res.writeHead("404", {
       "Content-type": "text/html",
       "my-own-header": "hello-world",
