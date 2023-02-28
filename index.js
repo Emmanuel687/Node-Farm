@@ -29,7 +29,7 @@ const server = http.createServer((req,res)=>{
     if(pathName ==='/' || pathName === '/overview'){
         res.end('This is the Overview')
     }else if(pathName==="/product"){
-        res.end("THis is the producd")
+        res.end("This is the Product")
     }else{
         res.writeHead("404",{
             'Content-type':'text/html',
