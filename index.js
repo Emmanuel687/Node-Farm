@@ -1,8 +1,3 @@
-// fs Stands for file system
-const fs = require("fs");
-const http = require("http");
-const url = require("url");
-
 // Creating new files
 // const textIn = fs.readFileSync("./txt/input.txt",'utf-8');
 // console.log(textIn)
@@ -24,6 +19,11 @@ const url = require("url");
 
 // fs.writeFile("./txt/")
 
+// fs Stands for file system
+const fs = require("fs");
+const http = require("http");
+const url = require("url");
+
 // SERVER
 const data = fs.readFileSync(`${__dirname}/dev-data/data.json`,'utf-8')
 const DataObj = JSON.parse(data)
@@ -32,6 +32,7 @@ const server = http.createServer((req, res) => {
 // Path Module
   const pathName = req.url;
 
+  //Overview page
   if (pathName === "/" || pathName === "/overview") {
     res.end("This is the Overview");
   }
@@ -46,7 +47,7 @@ const server = http.createServer((req, res) => {
       res.end(data);
   } 
 
-  //Error Route
+  //NOT FOUND
   else {
     res.writeHead("404", {
       "Content-type": "text/html",
