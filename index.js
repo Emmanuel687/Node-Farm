@@ -25,7 +25,11 @@ const http = require("http");
 const url = require("url");
 
 // SERVER
-const data = fs.readFileSync(`${__dirname}/dev-data/data.json`,'utf-8')
+const tempOverview = fs.readFileSync(`${__dirname}/templates/template-overview.html`, 'utf-8')
+const tempCard = fs.readFileSync(`${__dirname}/templates/template-card.html`, 'utf-8')
+const tempProduct = fs.readFileSync(`${__dirname}/templates/template-product.html`, 'utf-8')
+
+const data = fs.readFileSync(`${__dirname}/dev-data/data.json`,'utf-8');
 const DataObj = JSON.parse(data)
 
 const server = http.createServer((req, res) => {
@@ -34,7 +38,8 @@ const server = http.createServer((req, res) => {
 
   //Overview page
   if (pathName === "/" || pathName === "/overview") {
-    res.end("This is the Overview");
+    res.writeHead(200,{"Content-type":"text/html"})
+    res.end(tempOverview);
   }
   //Product Route
    else if (pathName === "/product") {
@@ -46,8 +51,7 @@ const server = http.createServer((req, res) => {
       res.writeHead(200, { "Content-type": "application/json" });
       res.end(data);
   } 
-
-  //NOT FOUND
+  //NOT FOUND route
   else {
     res.writeHead("404", {
       "Content-type": "text/html",
