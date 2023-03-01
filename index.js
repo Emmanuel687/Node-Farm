@@ -1,7 +1,6 @@
 // fs Stands for file system
 const fs = require("fs");
 const http = require("http");
-const { dirname } = require("path");
 const url = require("url");
 
 // Creating new files
